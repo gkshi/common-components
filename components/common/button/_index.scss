@@ -1,0 +1,48 @@
+// There are common base styles of buttons.
+// Don't change this file.
+// Put all your custom styles in index.vue
+
+.button-component {
+  display: block;
+  border: none;
+  cursor: pointer;
+
+  // types
+  @each $type in $button-types {
+    $name: nth($type, 1);
+    $background: nth($type, 2);
+    $color: nth($type, 3);
+    $background-hover: nth($type, 4);
+    $color-hover: nth($type, 5);
+
+    &.button-type-#{$name} {
+      background: $background;
+      color: $color;
+      &:hover {
+        background: $background-hover;
+        color: $color-hover;
+      }
+    }
+  }
+
+  // sizes
+  @each $size in $button-sizes {
+    $name: nth($size, 1);
+    $padding: nth($size, 2);
+    $font-size: nth($size, 3);
+    $line-height: nth($size, 4);
+
+    &.button-size-#{$name} {
+      padding: $padding;
+      font-size: $font-size;
+      line-height: $line-height;
+    }
+  }
+
+  // disabled state
+  &.button-disabled {
+    opacity: .5;
+    pointer-events: none;
+    user-select: none;
+  }
+}

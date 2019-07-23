@@ -1,0 +1,103 @@
+$tooltip-bg: $color-dark;
+$tooltip-color: $color-light;
+$tooltip-border: 5px;
+$tooltip-transition: all .3s ease;
+
+.tooltip-component {
+  position: absolute;
+  z-index: 2000;
+  padding: 8px 12px;
+  border-radius: 3px;
+  font-size: $font-size-small;
+  line-height: $line-height-small;
+  font-weight: $font-weight-semibold;
+  white-space: nowrap;
+  background: $tooltip-bg;
+  color: $tooltip-color;
+  transition: $tooltip-transition;
+
+  &:before {
+    content: '';
+    position: absolute;
+  }
+
+  &-position-top {
+    transform: translate(-50%, -100%);
+
+    &:before {
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: $tooltip-border solid transparent;
+      border-right: $tooltip-border solid transparent;
+      border-top: $tooltip-border solid $tooltip-bg;
+    }
+  }
+
+  &-position-bottom {
+    transform: translate(-50%, 100%);
+    &:before {
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -100%);
+      border-left: $tooltip-border solid transparent;
+      border-right: $tooltip-border solid transparent;
+      border-bottom: $tooltip-border solid $tooltip-bg;
+    }
+  }
+
+  &-position-bottom-right {
+    bottom: -10px;
+    right: 0;
+    transform: translate(0, 100%);
+    &:before {
+      top: 0;
+      right: 21px;
+      transform: translate(0, -100%);
+      border-left: $tooltip-border solid transparent;
+      border-right: $tooltip-border solid transparent;
+      border-bottom: $tooltip-border solid $tooltip-bg;
+    }
+  }
+
+  // animation
+  &.v-enter {
+    animation: show .2s ease backwards;
+  }
+  &.v-leave-active {
+    animation: hide .2s ease backwards;
+  }
+  &.v-enter,
+  &.v-leave-active {
+    &.tooltip-component-position-top {
+      transform: translate(-50%, calc(-100% + 4px));
+    }
+    &.tooltip-component-position-bottom {
+      transform: translate(-50%, calc(100% - 4px));
+    }
+    &.tooltip-component-position-bottom-right {
+      transform: translate(0, calc(100% - 4px));
+    }
+  }
+
+  @keyframes show {
+    from {
+      opacity: 0;
+      visibility: hidden;
+    }
+    to {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  @keyframes hide {
+    from {
+      opacity: 1;
+      visibility: visible;
+    }
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+}
