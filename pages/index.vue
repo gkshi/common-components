@@ -1,7 +1,17 @@
 <template lang="pug">
   .page.index
-    h1 Common Dev UI 💄
+    a.github(href="https://github.com/gkshi/common-components" target="_blank") github repo
+    h1
+      span Common components
+      i 💄
     .description There are common Dev UI components for your Vue/Nuxt project.
+    .anchors
+      a(href="#button") button
+      a(href="#tooltip") tooltip
+      a(href="#input") input
+      a(href="#input") textarea
+      a(href="#checkbox") checkbox
+      a(href="#modal") modal
 
     div
       span
@@ -52,6 +62,14 @@ export default {
 
 <style lang="scss">
   .page.index {
+    h1 {
+      i {
+        font-style: normal;
+        font-size: 1.3em;
+        display: inline-flex;
+        margin-left: 20px;
+      }
+    }
     .description {
       margin-top: 20px;
     }
@@ -102,6 +120,19 @@ export default {
     .option {
       width: 200px;
       text-align: left;
+    }
+
+    .anchors {
+      margin-top: 10px;
+      & > * {
+        display: inline-flex;
+        margin-right: 10px;
+      }
+    }
+
+    .github {
+      display: inline-block;
+      margin: 0 0 20px;
     }
   }
 </style>

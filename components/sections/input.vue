@@ -1,6 +1,6 @@
 <template lang="pug">
   .input-section-component
-    vSection(name="Input fields")
+    vSection(name="Input fields" id="input")
       table.docs(cellpadding="0" cellspacing="0")
         thead
           tr

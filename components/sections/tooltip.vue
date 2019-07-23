@@ -1,6 +1,6 @@
 <template lang="pug">
   .section-tooltip-component
-    vSection
+    vSection(id="tooltip")
       h2(slot="title")
         span Tooltips
         small directive

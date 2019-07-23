@@ -1,6 +1,6 @@
 <template lang="pug">
   .checkbox-section-component
-    vSection(name="Checkboxes")
+    vSection(name="Checkboxes" id="checkbox")
       table.docs(cellpadding="0" cellspacing="0")
         thead
           tr
@@ -48,6 +48,9 @@
             td.default false
             td.option
               input(v-model="config.disabled" type="checkbox")
+      div
+        span Events:
+        .label change
 
       .examples(slot="demo")
         div

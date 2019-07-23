@@ -1,6 +1,6 @@
 <template lang="pug">
   .textarea-section-component
-    vSection(name="Textarea fields")
+    vSection(name="Textarea fields" id="textarea")
       table.docs(cellpadding="0" cellspacing="0")
         thead
           tr

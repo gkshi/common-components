@@ -1,6 +1,6 @@
 <template lang="pug">
   .modal-section-component
-    vSection(name="Modals")
+    vSection(name="Modals" id="modal")
       table.docs(cellpadding="0" cellspacing="0")
         thead
           tr

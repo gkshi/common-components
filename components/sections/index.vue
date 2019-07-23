@@ -1,6 +1,6 @@
 <template lang="pug">
   .section-component.flex
-    .left
+    .left(:id="id")
       slot(v-if="$slots.title" name="title")
       h2(v-else) {{ name }}
       slot
@@ -13,6 +13,7 @@
 export default {
   name: 'section-component',
   props: {
+    id: String,
     name: String
   }
 }

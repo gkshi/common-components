@@ -1,6 +1,6 @@
 <template lang="pug">
   .section-button-component
-    vSection(name="Buttons")
+    vSection(name="Buttons" id="button")
       table.docs(cellpadding="0" cellspacing="0")
         thead
           tr
