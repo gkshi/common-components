@@ -21,10 +21,10 @@
             td.option
               input(v-model="label")
           tr
-            td.prop value
+            td.prop value (v-model)
             td.type String, Number, Boolean, Array
             td.default -
-            td.option for checkbox groups
+            td.option -
           tr
             td.prop val
             td.type String, Number, Boolean
@@ -37,12 +37,6 @@
             td.option
               input(v-model="config.indeterminate" type="checkbox")
           tr
-            td.prop checked
-            td.type Boolean
-            td.default false
-            td.option
-              input(v-model="config.checked" type="checkbox")
-          tr
             td.prop disabled
             td.type Boolean
             td.default false
@@ -54,17 +48,9 @@
 
       .examples(slot="demo")
         div
-          template(v-if="config.checked")
-            commonCheckbox(
-              :indeterminate="config.indeterminate"
-              :checked="true"
-              :disabled="config.disabled"
-              :key="1") {{ label }}
-          template(v-else)
-            commonCheckbox(
-              :indeterminate="config.indeterminate"
-              :disabled="config.disabled"
-              :key="2") {{ label }}
+          commonCheckbox(
+            :indeterminate="config.indeterminate"
+            :disabled="config.disabled") {{ label }}
         .group
           div Checkbox group, selected: {{ selected }}
           .list.flex

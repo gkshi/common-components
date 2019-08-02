@@ -1,16 +1,16 @@
 <template lang="pug">
   .checkbox-component(:class="{ 'checkbox-disabled': disabled }")
     input(
-      :id="id"
+      :id="localId"
       type="checkbox"
       :indeterminate.prop="indeterminate"
-      :checked="localChecked"
+      :checked="checked"
       :disabled="disabled"
       v-model="model"
       :value="val"
       :class="computedClass"
       @change="change")
-    label.flex.a-center(:for="id")
+    label.flex.a-center(:for="localId")
       .box.flex.center(:class="{ 'margin': $slots.default }")
         iconCheck.check
       slot
@@ -28,19 +28,16 @@ export default {
     event: 'change'
   },
   props: {
-    id: {
-      type: String,
-      default: () => Math.random().toFixed(7).slice(2)
-    },
+    id: String,
     value: [String, Number, Boolean, Array],
     val: [String, Number, Boolean],
     indeterminate: Boolean,
-    checked: Boolean,
     disabled: Boolean
   },
   data () {
     return {
-      localChecked: false
+      localId: this.id,
+      checked: false
     }
   },
   computed: {
@@ -49,7 +46,7 @@ export default {
         return this.value
       },
       set (val) {
-        this.localChecked = val
+        this.checked = val
       }
     },
     computedClass () {
@@ -57,16 +54,16 @@ export default {
       if (this.indeterminate) {
         classList += 'indeterminate'
       }
-      if (this.$options.propsData.checked !== undefined) {
-        classList += ` ${this.checked ? 'checked' : 'non-checked'}`
-      }
       return classList
     }
   },
   methods: {
     change () {
-      this.$emit('change', this.localChecked)
+      this.$emit('change', this.checked)
     }
+  },
+  mounted () {
+    this.localId = this.localId || Math.random().toFixed(7).slice(2)
   }
 }
 </script>
