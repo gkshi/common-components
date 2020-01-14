@@ -1,6 +1,6 @@
 <template lang="pug">
   .input-section-component
-    vSection(name="Input field" id="input")
+    vSection(name="File field" id="file")
       table.docs(cellpadding="0" cellspacing="0")
         thead
           tr
@@ -21,55 +21,55 @@
             td.option
               input(v-model="label")
           tr
-            td.prop type
+            td.prop accept
             td.type String
-            td.default text
+            td.default *
             td.option
-              select(v-model="type")
-                option(value="text" selected) text
-                option(value="number") number
-                option(value="date") date
+              input(v-model="accept")
           tr
-            td.prop error
-            td.type String, Boolean
-            td.default -
-            td.option
-              input(type="checkbox" v-model="error")
-          tr
-            td.prop readonly
+            td.prop multiple
             td.type Boolean
             td.default false
             td.option
-              input(type="checkbox" v-model="readonly")
+              input(v-model="multiple" type="checkbox")
           tr
             td.prop disabled
             td.type Boolean
             td.default false
             td.option
               input(type="checkbox" v-model="disabled")
+          tr
+            td.prop required
+            td.type Boolean
+            td.default false
+            td.option
+              input(type="checkbox" v-model="required")
 
       .dependencies
-        span Dependencies:
-        span &nbsp;-
+        span Dependencies:&nbsp;
+        span button
 
       div
         span Events:
-        .label input
         .label change
         .label focus
         .label blur
 
       div(slot="demo")
-        commonInput(
-          :type="type"
+        div value: {{ value || 'null' }}
+        div
+          a(href="#" @click.prevent="reset") reset
+        br
+        commonFile(
           v-model="value"
-          :readonly="readonly"
           :disabled="disabled"
-          :error="error"
-          @input="log(`input ${$event}`)"
+          :accept="accept"
+          :required="required"
+          :multiple="multiple"
           @change="log(`change ${$event}`)"
           @focus="log('focus')"
           @blur="log('blur')") {{ label }}
+
         .logs
           div Logs:
           textarea(ref="logs" v-model="logs")
@@ -78,23 +78,31 @@
 <script>
 import mixinLog from '@/mixins/log'
 import vSection from '@/components/sections'
-import commonInput from '@/components/common/input'
+import commonFile from '@/components/common/file'
 
 export default {
   name: 'input-section-component',
   mixins: [mixinLog],
   components: {
     vSection,
-    commonInput
+    commonFile
   },
   data () {
     return {
-      label: 'Default field',
-      value: '',
-      error: false,
+      label: 'File field label',
+      value: null,
+      value2: null,
+      accept: '*',
       type: 'text',
-      readonly: false,
-      disabled: false
+      multiple: false,
+      disabled: false,
+      required: false
+    }
+  },
+  methods: {
+    reset () {
+      this.value = null
+      this.value2 = null
     }
   }
 }

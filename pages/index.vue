@@ -5,41 +5,65 @@
       span Common components
       i 💄
     .description There are common Dev UI components for your Vue/Nuxt project.
-    .anchors
+    .anchors.flex.wrap
       a(href="#button") button
-      a(href="#tooltip") tooltip
+      // a(href="#tooltip") tooltip
       a(href="#input") input
+      a(href="#file") file
       a(href="#input") textarea
+      a(href="#counter") counter
+      // a(href="#range") range
+      a(href="#radio") radio
       a(href="#checkbox") checkbox
       a(href="#modal") modal
+      a(href="#tabs") tabs
+      a(href="#form") form
 
     div
       span
 
     sectionButton.section
-    sectionTooltip.section
+    // sectionTooltip.section
     sectionInput.section
+    sectionFile.section
     sectionTextarea.section
+    sectionCounter.section
+    // sectionRange.section
+    sectionRadio.section
     sectionCheckbox.section
     sectionModal.section
+    sectionTabs.section
+    sectionForm.section
 </template>
 
 <script>
 import sectionButton from '@/components/sections/button'
-import sectionTooltip from '@/components/sections/tooltip'
+// import sectionTooltip from '@/components/sections/tooltip'
 import sectionInput from '@/components/sections/input'
+import sectionFile from '@/components/sections/file'
+import sectionCounter from '@/components/sections/counter'
+// import sectionRange from '@/components/sections/range'
 import sectionTextarea from '@/components/sections/textarea'
+import sectionRadio from '@/components/sections/radio'
 import sectionCheckbox from '@/components/sections/checkbox'
 import sectionModal from '@/components/sections/modal'
+import sectionTabs from '@/components/sections/tabs'
+import sectionForm from '@/components/sections/form'
 
 export default {
   components: {
     sectionButton,
-    sectionTooltip,
+    // sectionTooltip,
     sectionInput,
+    sectionFile,
+    sectionCounter,
+    // sectionRange,
     sectionTextarea,
+    sectionRadio,
     sectionCheckbox,
-    sectionModal
+    sectionModal,
+    sectionForm,
+    sectionTabs
   },
   data () {
     return {

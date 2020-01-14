@@ -1,4 +1,5 @@
-.flex {
+.flex,
+.inline-flex {
   display: flex;
   &.center {
     justify-content: center;
@@ -34,6 +35,10 @@
   .shrink {
     flex-shrink: 0;
   }
+}
+
+.inline-flex {
+  display: inline-flex;
 }
 
 .grid {

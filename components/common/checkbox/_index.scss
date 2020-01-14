@@ -1,17 +1,26 @@
 $transition-checkbox: all .3s ease;
-$checkbox-color: $color-dark;
+$checkbox-color: $color-text-regular;
 $checkbox-color-checked: $color-primary;
+$checkbox-width: 20px;
+$checkbox-height: 20px;
+
+$error-color: red;
 
 .checkbox-component {
   position: relative;
-  display: flex;
-  flex-shrink: 0;
   label {
     cursor: pointer;
   }
 
   input {
-    display: none;
+    // display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0;
+    width: $checkbox-width;
+    height: $checkbox-height;
 
     &:checked:not(.non-checked):not(.indeterminate),
     &.checked {
@@ -49,8 +58,8 @@ $checkbox-color-checked: $color-primary;
 
   .box {
     position: relative;
-    width: 20px;
-    height: 20px;
+    width: $checkbox-width;
+    height: $checkbox-height;
     border: 2px solid $checkbox-color;
     border-radius: 3px;
     cursor: pointer;
@@ -83,10 +92,19 @@ $checkbox-color-checked: $color-primary;
     }
   }
 
-  &.checkbox-disabled {
+  &.disabled {
     opacity: .5;
     pointer-events: none;
     cursor: default;
     user-select: none;
+  }
+
+  .error {
+    color: $error-color;
+  }
+  &-error {
+    .box {
+      border-color: $error-color;
+    }
   }
 }

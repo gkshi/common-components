@@ -1,6 +1,6 @@
 <template lang="pug">
   .textarea-section-component
-    vSection(name="Textarea fields" id="textarea")
+    vSection(name="Textarea" id="textarea")
       table.docs(cellpadding="0" cellspacing="0")
         thead
           tr
@@ -21,6 +21,12 @@
             td.option
               input(v-model="label")
           tr
+            td.prop error
+            td.type String, Boolean
+            td.default -
+            td.option
+              input(type="checkbox" v-model="error")
+          tr
             td.prop readonly
             td.type Boolean
             td.default false
@@ -32,9 +38,14 @@
             td.default false
             td.option
               input(type="checkbox" v-model="disabled")
+
+      .dependencies
+        span Dependencies:
+        span &nbsp;-
+
       div
         span Events:
-        .label textarea
+        .label input
         .label change
         .label focus
         .label blur
@@ -43,15 +54,25 @@
         commonTextarea(
           v-model="value"
           :readonly="readonly"
-          :disabled="disabled") {{ label }}
+          :disabled="disabled"
+          :error="error"
+          @input="log(`input ${$event}`)"
+          @change="log(`change ${$event}`)"
+          @focus="log('focus')"
+          @blur="log('blur')") {{ label }}
+        .logs
+          div Logs:
+          textarea(ref="logs" v-model="logs")
 </template>
 
 <script>
+import mixinLog from '@/mixins/log'
 import vSection from '@/components/sections'
 import commonTextarea from '@/components/common/textarea'
 
 export default {
   name: 'textarea-section-component',
+  mixins: [mixinLog],
   components: {
     vSection,
     commonTextarea
@@ -60,6 +81,7 @@ export default {
     return {
       label: 'Default textarea',
       value: '',
+      error: false,
       type: 'text',
       readonly: false,
       disabled: false

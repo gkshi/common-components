@@ -1,5 +1,5 @@
 <template lang="pug">
-  svg(width="14px" height="11px" viewbox="0 0 14 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink")
+  svg(width="14px" height="11px" viewBox="0 0 14 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink")
     g#Page-2(stroke="none" stroke-width="1" fill="none" fill-rule="evenodd")
       g.fill.stroke(transform="translate(-293.000000, -573.000000)" fill-rule="nonzero" stroke-width="0.5")
         g#Group(transform="translate(290.000000, 568.000000)")

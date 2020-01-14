@@ -1,9 +1,32 @@
 <template lang="pug">
-  button.button-component(
-    :class="classList"
-    @click="click"
-    @focus="$emit('focus')")
-    slot
+  .button-component(@click="click" :class="{ disabled }")
+    a.button(
+      v-if="href"
+      :class="classList"
+      role="button"
+      :href="href"
+      :target="target"
+      @focus="$emit('focus')"
+      @blur="$emit('blur')")
+      slot
+    nuxt-link.button(
+      v-else-if="to"
+      :class="classList"
+      role="button"
+      :to="to"
+      @focus="$emit('focus')"
+      @blur="$emit('blur')")
+      slot
+    button.button(
+      v-else
+      :class="classList"
+      role="button"
+      :form="form"
+      :type="native"
+      @focus="$emit('focus')"
+      @blur="$emit('blur')"
+      :disabled="disabled")
+      slot
 </template>
 
 <script>
@@ -18,23 +41,30 @@ export default {
       type: String,
       default: 'default'
     },
+    native: {
+      type: String,
+      default: 'button' // native button type (submit, confirm)
+    },
+    form: String,
+    href: String,
+    to: String,
+    target: {
+      type: String,
+      default: '_blank' // _blank, _self
+    },
     disabled: Boolean
   },
   computed: {
     classList () {
-      let classes = `button-type-${this.type} button-size-${this.size}`
-      if (this.disabled) {
-        classes += ' button-disabled'
-      }
-      return classes
+      return `button-type-${this.type} button-size-${this.size}`
     }
   },
   methods: {
-    click () {
+    click (e) {
       if (this.disabled) {
-        return
+        return e
       }
-      this.$emit('click')
+      this.$emit('click', e)
     }
   }
 }

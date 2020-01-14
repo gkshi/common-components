@@ -25,6 +25,7 @@ export default {
       //
     }
     .right {
+      flex-grow: 1;
       margin-left: 100px;
       h2 {
         opacity: .2;

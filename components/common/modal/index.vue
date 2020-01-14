@@ -2,10 +2,17 @@
   transition(name="modal")
     .modal-component(v-if="show" @click.self="close")
       dialog(:open="show")
+        .close(@click="close")
+          div X
+
         .title(v-if="$slots.title")
           slot(name="title")
+
         .content
           slot Modal default content
+
+        .actions.buttons(v-if="$slots.actions")
+          slot(name="actions")
 </template>
 
 <script>
@@ -27,6 +34,13 @@ export default {
       return this.modals.includes(this.id)
     }
   },
+  watch: {
+    show () {
+      this.show
+        ? this.$emit('open')
+        : this.$emit('close')
+    }
+  },
   methods: {
     close () {
       this.$store.dispatch('closeModal', this.id)
@@ -36,39 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  $modal-background-wrapper: rgba(#000, 0.35);
-  $transition-modal-wrapper: opacity 0.25s ease;
-  $transition-modal: opacity 0.25s ease, transform 0.25s ease;
   .modal-component {
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    padding: 40px 0;
-    background: $modal-background-wrapper;
-    transition: $transition-modal-wrapper;
-    box-sizing: border-box;
-    dialog {
-      position: relative;
-      width: 600px;
-      max-width: 100%;
-      max-height: 100%;
-      transition: $transition-modal;
-    }
-    &.modal-enter {
-      opacity: 0;
-      dialog {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-    }
-    &.modal-leave-active {
-      opacity: 0;
-    }
+    // your custom styles here
   }
 </style>

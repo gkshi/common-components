@@ -2,7 +2,7 @@
   .section-tooltip-component
     vSection(id="tooltip")
       h2(slot="title")
-        span Tooltips
+        span Tooltip
         small directive
 
       table.docs(cellpadding="0" cellspacing="0")
@@ -32,6 +32,14 @@
             td.default 400
             td.option
               input(v-model.number="config.delay")
+
+      .dependencies
+        span Dependencies:
+        span &nbsp;-
+
+      div
+        span Events:
+        span &nbsp;-
 
       div(slot="demo")
         .desc

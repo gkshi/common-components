@@ -1,6 +1,6 @@
 <template lang="pug">
-  .input-section-component
-    vSection(name="Input field" id="input")
+  .counter-section-component
+    vSection(name="Counter field" id="counter")
       table.docs(cellpadding="0" cellspacing="0")
         thead
           tr
@@ -21,20 +21,35 @@
             td.option
               input(v-model="label")
           tr
-            td.prop type
-            td.type String
-            td.default text
+            td.prop step
+            td.type Number
+            td.default 1
             td.option
-              select(v-model="type")
-                option(value="text" selected) text
-                option(value="number") number
-                option(value="date") date
+              input(v-model.number="step" type="number")
           tr
-            td.prop error
-            td.type String, Boolean
+            td.prop input-delay
+            td.type Number
+            td.default 500
+            td.option
+              input(v-model.number="delay" type="number")
+          tr
+            td.prop negative
+            td.type Boolean
+            td.default false
+            td.option
+              input(v-model="negative" type="checkbox")
+          tr
+            td.prop min
+            td.type Number
             td.default -
             td.option
-              input(type="checkbox" v-model="error")
+              input(v-model="min" type="number")
+          tr
+            td.prop max
+            td.type Number
+            td.default -
+            td.option
+              input(v-model="max" type="number")
           tr
             td.prop readonly
             td.type Boolean
@@ -54,18 +69,20 @@
 
       div
         span Events:
-        .label input
         .label change
         .label focus
         .label blur
 
       div(slot="demo")
-        commonInput(
-          :type="type"
+        commonCounter(
           v-model="value"
           :readonly="readonly"
           :disabled="disabled"
-          :error="error"
+          :step="step"
+          :input-delay="delay"
+          :negative="negative"
+          :min="min"
+          :max="max"
           @input="log(`input ${$event}`)"
           @change="log(`change ${$event}`)"
           @focus="log('focus')"
@@ -78,20 +95,24 @@
 <script>
 import mixinLog from '@/mixins/log'
 import vSection from '@/components/sections'
-import commonInput from '@/components/common/input'
+import commonCounter from '@/components/common/counter'
 
 export default {
-  name: 'input-section-component',
+  name: 'counter-section-component',
   mixins: [mixinLog],
   components: {
     vSection,
-    commonInput
+    commonCounter
   },
   data () {
     return {
       label: 'Default field',
-      value: '',
-      error: false,
+      step: 1,
+      delay: 500,
+      negative: false,
+      min: null,
+      max: null,
+      value: 0,
       type: 'text',
       readonly: false,
       disabled: false
@@ -101,7 +122,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .input-section-component {
+  .counter-section-component {
     //
   }
 </style>
