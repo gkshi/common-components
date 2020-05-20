@@ -10,10 +10,12 @@
         :checked="checkboxState"
         :required="required"
         :disabled="disabled")
+
       label.flex.a-center(:for="localId" @click.prevent="toggle")
         .box.flex.center(:class="{ 'margin': !!$slots.default }")
           iconCheck.check
         slot
+
     .error(v-if="error") {{ errorText }}
 </template>
 
@@ -30,20 +32,35 @@ export default {
     event: 'change'
   },
   props: {
+    // Значение атрибута "id" у поля (и "for" у label)
     id: String,
+
+    // Массив или строка с выбранными значениями
     model: {
       // eslint-disable-next-line vue/require-prop-type-constructor
       type: String | Array,
       default: undefined
     },
+
+    // Значение конкретного чекбокса
     value: {
       type: [String, Number, Boolean],
-      default: ''
+      required: true
     },
+
+    // Состояние, когда чекбокс выбран частично
     indeterminate: Boolean,
+
+    // Первоначальное состояние "выбран"
     checked: Boolean,
+
+    // Строка или флаг с ошибкой
     error: [String, Boolean],
+
+    // Обязательно ли поле к заполнению
     required: Boolean,
+
+    // Состояние неактивности
     disabled: Boolean
   },
   data () {
@@ -66,20 +83,6 @@ export default {
       return typeof this.error === 'string' ? this.error : 'Error'
     }
   },
-  methods: {
-    toggle () {
-      if (this.disabled) { return }
-
-      let value = this.model || this.value
-
-      if (Array.isArray(value)) {
-        const i = value.indexOf(this.value)
-        if (i === -1) { value.push(this.value) } else { value.splice(i, 1) }
-      } else { value = !this.checkboxState }
-
-      this.$emit('change', value)
-    }
-  },
   watch: {
     checked (v) {
       if (v !== this.checkboxState) { this.toggle() }
@@ -94,12 +97,28 @@ export default {
     if (this.checked && !this.checkboxState) {
       this.toggle()
     }
+  },
+  methods: {
+    toggle () {
+      if (this.disabled) {
+        return
+      }
+
+      let value = this.model || this.value
+
+      if (Array.isArray(value)) {
+        const i = value.indexOf(this.value)
+        if (i === -1) { value.push(this.value) } else { value.splice(i, 1) }
+      } else { value = !this.checkboxState }
+
+      this.$emit('change', value)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .checkbox-component {
-    //
+    // Your custom styles here
   }
 </style>

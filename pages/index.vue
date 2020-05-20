@@ -4,7 +4,7 @@
     h1
       span Common components
       i 💄
-    .description There are common Dev UI components for your Vue/Nuxt project.
+    .description There are common UI components for your Vue/Nuxt project.
     .anchors.flex.wrap
       a(href="#button") button
       // a(href="#tooltip") tooltip

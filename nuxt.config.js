@@ -1,6 +1,6 @@
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -37,14 +37,21 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/directives/outside',
-    '@/directives/tooltip'
+    '@/plugins/common-components',
+    '@/mixins/modal'
+  ],
+  /*
+  ** Nuxt.js dev-modules
+  */
+  buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources'
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/eslint-module'
   ],
   /*
   ** Build configuration
@@ -53,12 +60,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
+    extend (config, ctx) {
     }
-  },
-
-  // For demo site
-  router: {
-    base: process.env.NODE_ENV === 'production' ? '/cc/' : ''
   }
 }

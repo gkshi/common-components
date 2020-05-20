@@ -18,11 +18,16 @@
 export default {
   name: 'tabs-component',
   props: {
+    // Массив с табами
     tabs: {
       type: Array,
       required: true
     },
+
+    // Состояние неактивности всех табов
     disabled: Boolean,
+
+    // Состояние "Скрывать линию"
     noLine: Boolean
   },
   data () {
@@ -46,6 +51,18 @@ export default {
       }
       this.showTabContent()
       this.$emit('change', this.active)
+    }
+  },
+  mounted () {
+    this.setActive(this.findActive())
+
+    if (!this.noLine) {
+      window.addEventListener('resize', this.moveIndicator)
+    }
+  },
+  beforeDestroy () {
+    if (!this.noLine) {
+      window.removeEventListener('resize', this.moveIndicator)
     }
   },
   methods: {
@@ -86,18 +103,6 @@ export default {
         this.indicator.width = activeTabEl.offsetWidth
         this.indicator.left = activeTabEl.offsetLeft
       })
-    }
-  },
-  mounted () {
-    this.setActive(this.findActive())
-
-    if (!this.noLine) {
-      window.addEventListener('resize', this.moveIndicator)
-    }
-  },
-  beforeDestroy () {
-    if (!this.noLine) {
-      window.removeEventListener('resize', this.moveIndicator)
     }
   }
 }

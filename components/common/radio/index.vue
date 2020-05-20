@@ -38,14 +38,14 @@ export default {
       localId: this.id
     }
   },
-  methods: {
-    change () {
-      this.$emit('change', this.val)
-    }
-  },
   mounted () {
     this.localId = this.localId || Math.random().toFixed(7).slice(2)
     if (this.checked && this.val !== this.value) {
+      this.$emit('change', this.val)
+    }
+  },
+  methods: {
+    change () {
       this.$emit('change', this.val)
     }
   }

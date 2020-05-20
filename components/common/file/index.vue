@@ -7,6 +7,7 @@
         ref="input"
         type="file"
         :id="localId"
+        :name="name"
         :accept="accept"
         :multiple="multiple"
         :disabled="disabled"
@@ -25,8 +26,8 @@
 </template>
 
 <script>
-import commonButton from '@/components/common/button'
 import iconAttachment from './icon'
+import commonButton from '@/components/common/button'
 
 export default {
   name: 'input-file-component',
@@ -40,15 +41,22 @@ export default {
   },
   props: {
     id: String,
+
+    // Значение атрибута "name" у поля
+    name: String,
+
+    // Значение поля (объект, файл или список файлов)
     value: {
       validator: value => {
         return typeof value === 'object' || value instanceof File || value instanceof FileList
       },
       default: () => {}
     },
+
+    // Разрешенные типы файлов (MIME формат) (image/*, application/pdf, text/plain и другие)
     accept: {
       type: String,
-      default: '*' // MIME types here (for example, image/*, application/pdf, text/plain)
+      default: '*'
     },
     multiple: Boolean,
     disabled: Boolean,
@@ -75,6 +83,13 @@ export default {
       }
     }
   },
+  mounted () {
+    this.localId = this.localId || Math.random().toFixed(7).slice(2)
+    this.$refs.input.addEventListener('change', this.sync)
+  },
+  beforeDestroy () {
+    this.$refs.input.removeEventListener('change', this.sync)
+  },
   methods: {
     click () {
       this.$refs.input.click()
@@ -97,19 +112,12 @@ export default {
         this.$refs.input.value = null
       }
     }
-  },
-  mounted () {
-    this.localId = this.localId || Math.random().toFixed(7).slice(2)
-    this.$refs.input.addEventListener('change', this.sync)
-  },
-  beforeDestroy () {
-    this.$refs.input.removeEventListener('change', this.sync)
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .input-file-component {
-    // your custom styles here
+    // Your custom styles here
   }
 </style>

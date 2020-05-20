@@ -44,6 +44,11 @@
             td.default submit
             td.option for "button" tag
           tr
+            td.prop form
+            td.type String
+            td.default -
+            td.option &nbsp;
+          tr
             td.prop disabled
             td.type Boolean
             td.default false
@@ -105,11 +110,11 @@ import commonButton from '@/components/common/button'
 
 export default {
   name: 'section-button-component',
-  mixins: [mixinLog],
   components: {
     vSection,
     commonButton
   },
+  mixins: [mixinLog],
   data () {
     return {
       button: {

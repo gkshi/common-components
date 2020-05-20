@@ -5,6 +5,7 @@
     input(
       ref="input"
       :id="localId"
+      :name="name"
       :type="type"
       :value="value"
       :readonly="readonly"
@@ -25,6 +26,7 @@ export default {
   name: 'input-component',
   props: {
     id: String,
+    name: String,
     type: {
       type: String,
       default: 'text'
@@ -46,10 +48,22 @@ export default {
       return typeof this.error === 'string' ? this.error : 'Error'
     }
   },
+  mounted () {
+    this.localId = this.localId || Math.random().toFixed(7).slice(2)
+    if (this.autofocus) {
+      this.focus()
+    }
+  },
   methods: {
     focus () {
       this.$nextTick(() => {
         this.$refs.input.focus()
+      })
+    },
+    select () {
+      this.$nextTick(() => {
+        this.$refs.input.focus()
+        this.$refs.input.select()
       })
     },
     paste (e) {
@@ -57,12 +71,6 @@ export default {
       const value = e.clipboardData.getData('Text')
       this.$emit('input', value)
       this.$emit('paste', value)
-    }
-  },
-  mounted () {
-    this.localId = this.localId || Math.random().toFixed(7).slice(2)
-    if (this.autofocus) {
-      this.focus()
     }
   }
 }

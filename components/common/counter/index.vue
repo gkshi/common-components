@@ -29,28 +29,49 @@
 <script>
 export default {
   name: 'counter-component',
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
   props: {
+    // ID поля
     id: String,
+
+    // Значение поля (реактивно)
     value: [String, Number],
+
+    // Шаг, с которым изменяется значение при нажатии на + и -
     step: {
       type: Number,
       default: 1
     },
+
+    // Задержка в мс до срабатывания "change" (при вводе значения в поле руками)
     inputDelay: {
-      type: Number,
+      type: [String, Number],
       default: 300
     },
+
+    // Минимальный допустимый предел значения
     min: [Number, String],
+
+    // Максимальный допустимый предел значения
     max: [Number, String],
+
+    // Текст-подсказка в поле
     placeholder: String,
+
+    // Автофокусировка в поле
     autofocus: Boolean,
+
+    // Может ли значение быть отрицательным
     negative: Boolean,
+
+    // Только для чтения
     readonly: Boolean,
+
+    // Состояние неактивности
     disabled: Boolean
-  },
-  model: {
-    prop: 'value',
-    event: 'change'
   },
   data () {
     return {
@@ -59,11 +80,18 @@ export default {
       localMin: this.min
     }
   },
+  mounted () {
+    this.localId = this.localId || Math.random().toFixed(7).slice(2)
+    this.$refs.input.addEventListener('paste', this.paste)
+  },
+  beforeDestroy () {
+    this.$refs.input.removeEventListener('paste', this.paste)
+  },
   methods: {
     validate (value) {
       value = parseInt(value)
       if (isNaN(value) || typeof value !== 'number') {
-        return 0
+        value = 0
       }
       if (!this.negative) {
         value = value > 0 ? value : 0
@@ -85,10 +113,11 @@ export default {
       clearTimeout(this.timeout)
       this.timeout = setTimeout(() => {
         this.$emit('change', this.validate(e.target.value))
-      }, this.inputDelay)
+      }, +this.inputDelay)
     },
     change (e) {
       this.$emit('change', this.validate(e.target.value))
+      e.target.value = this.validate(e.target.value)
     },
     blur (e) {
       clearTimeout(this.timeout)
@@ -100,34 +129,12 @@ export default {
     plus () {
       this.$emit('change', this.validate(+this.value + this.step))
     }
-  },
-  mounted () {
-    this.localId = this.localId || Math.random().toFixed(7).slice(2)
-    this.$refs.input.addEventListener('paste', this.paste)
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .counter-component {
-    label {
-      display: block;
-    }
-    input {
-      display: block;
-      &::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-      -moz-appearance: textfield;
-      &:hover,
-      &:focus {
-        -moz-appearance: number-input;
-      }
-    }
+    // your custom styles here
   }
 </style>
