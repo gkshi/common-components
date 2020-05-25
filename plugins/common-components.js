@@ -8,6 +8,7 @@ import commonInput from '@/components/common/input'
 import commonLoader from '@/components/common/loader'
 import commonModal from '@/components/common/modal'
 import commonRadio from '@/components/common/radio'
+import commonSearch from '@/components/common/search'
 import commonTabs from '@/components/common/tabs'
 import commonTextarea from '@/components/common/textarea'
 
@@ -20,6 +21,7 @@ import commonInputStyles from '@/components/common/input/_index.scss'
 import commonLoaderStyles from '@/components/common/loader/_index.scss'
 import commonModalStyles from '@/components/common/modal/_index.scss'
 import commonRadioStyles from '@/components/common/radio/_index.scss'
+import commonSearchStyles from '@/components/common/search/_index.scss'
 import commonTabsStyles from '@/components/common/tabs/_index.scss'
 import commonTextareaStyles from '@/components/common/textarea/_index.scss'
 /* eslint-enable no-unused-vars */
@@ -32,5 +34,6 @@ Vue.component('commonInput', commonInput)
 Vue.component('commonLoader', commonLoader)
 Vue.component('commonModal', commonModal)
 Vue.component('commonRadio', commonRadio)
+Vue.component('commonSearch', commonSearch)
 Vue.component('commonTabs', commonTabs)
 Vue.component('commonTextarea', commonTextarea)

@@ -1,0 +1,19 @@
+.search-component {
+  position: relative;
+
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    background: #eee;
+
+    & > * {
+      cursor: pointer;
+      &:hover {
+        background: #ddd;
+      }
+    }
+  }
+}
