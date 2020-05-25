@@ -1,12 +1,12 @@
 <template lang="pug">
-  .input-component(:class="{ 'input-component-error': error }")
+  .input-component(:class="classList")
     label(v-if="$slots.default" :for="localId")
       slot
     input(
       ref="input"
       :id="localId"
       :name="name"
-      :type="type"
+      :type="native"
       :value="value"
       :readonly="readonly"
       :disabled="disabled"
@@ -27,9 +27,13 @@ export default {
   props: {
     id: String,
     name: String,
-    type: {
+    native: {
       type: String,
       default: 'text'
+    },
+    type: {
+      type: String,
+      default: 'default'
     },
     value: [String, Number],
     error: [String, Boolean],
@@ -44,6 +48,13 @@ export default {
     }
   },
   computed: {
+    classList () {
+      let str = `input-type-${this.type}`
+      if (this.error) {
+        str += ' input-component-error'
+      }
+      return str
+    },
     errorText () {
       return typeof this.error === 'string' ? this.error : 'Error'
     }
